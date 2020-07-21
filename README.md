@@ -1,0 +1,1 @@
+# Maximus.Research.ManagedModules
