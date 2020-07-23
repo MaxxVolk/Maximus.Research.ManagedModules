@@ -1,0 +1,84 @@
+<TemplateGroup>
+  <Instances>
+    <Instance ID="Instancead122e8e2c2b461a804a5ac5069aa36f" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.CustomRule" Version="1.0.0.0">
+      <CustomRuleConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <Id>SimpleProbeAction.Rule</Id>
+        <DisplayName>Simple Probe Action Rule</DisplayName>
+        <Description>Simple Probe Action Test</Description>
+        <Category>Maintenance</Category>
+        <ConfirmDelivery>false</ConfirmDelivery>
+        <Target>Windows!Microsoft.Windows.Computer</Target>
+        <Enabled>true</Enabled>
+        <Remotable>true</Remotable>
+        <Priority>Normal</Priority>
+        <DiscardLevel>100</DiscardLevel>
+        <DataSources>
+          <RuleDataSourceItem>
+            <DataSourceId>DS_SimpleProbeAction</DataSourceId>
+            <DataSourceType>Maximus.Research.ManagedModules.SimpleProbeAction.DataSource</DataSourceType>
+          </RuleDataSourceItem>
+        </DataSources>
+        <ConditionDetectionId>CD</ConditionDetectionId>
+        <WriteActions>
+          <RuleWriteActionItem>
+            <WriteActionId>WA</WriteActionId>
+            <WriteActionConfig>&lt;ApplicationName&gt;cmd.exe&lt;/ApplicationName&gt;&lt;WorkingDirectory /&gt;&lt;CommandLine&gt;/C&lt;/CommandLine&gt;&lt;TimeoutSeconds&gt;10&lt;/TimeoutSeconds&gt;&lt;RequireOutput&gt;false&lt;/RequireOutput&gt;</WriteActionConfig>
+            <WriteActionType>System!System.CommandExecuter</WriteActionType>
+          </RuleWriteActionItem>
+        </WriteActions>
+      </CustomRuleConfig>
+    </Instance>
+    <Instance ID="Instanceef5a9273aa62479b81ccc8081c84e95a" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.UnitMonitor" Version="1.0.0.0">
+      <UnitMonitorConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <MonitorType>Maximus.Research.ManagedModules.SimpleProbeActionUnitMonitorType</MonitorType>
+        <MonitorOperationalStates>
+          <OperationalState>
+            <OperationalStateId>OK</OperationalStateId>
+            <OperationalStateDisplayName>OK</OperationalStateDisplayName>
+            <MonitorTypeStateId>OK</MonitorTypeStateId>
+            <HealthState>Success</HealthState>
+          </OperationalState>
+          <OperationalState>
+            <OperationalStateId>ERROR</OperationalStateId>
+            <OperationalStateDisplayName>ERROR</OperationalStateDisplayName>
+            <MonitorTypeStateId>ERROR</MonitorTypeStateId>
+            <HealthState>Warning</HealthState>
+          </OperationalState>
+        </MonitorOperationalStates>
+        <ParentMonitor>Health!System.Health.AvailabilityState</ParentMonitor>
+        <Accessibility>Public</Accessibility>
+        <Id>SimpleProbeAction.UnitMonitor</Id>
+        <DisplayName>Simple Probe Action Unit Monitor</DisplayName>
+        <Description>Simple Probe Action Test</Description>
+        <Target>Windows!Microsoft.Windows.Computer</Target>
+        <Enabled>true</Enabled>
+        <Category>AvailabilityHealth</Category>
+        <Remotable>true</Remotable>
+        <Priority>Normal</Priority>
+        <AlertAutoResolve>true</AlertAutoResolve>
+        <AlertOnState>Warning</AlertOnState>
+        <AlertPriority>Normal</AlertPriority>
+        <AlertSeverity>MatchMonitorHealth</AlertSeverity>
+        <AlertName>Simple Probe Action Alert</AlertName>
+        <AlertDescription>SimpleProbeAction Alert text.</AlertDescription>
+        <ConfirmDelivery>false</ConfirmDelivery>
+      </UnitMonitorConfig>
+    </Instance>
+    <Instance ID="Instance2c8b0097890b431e82d5e6cbdb492128" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.CustomTask" Version="1.0.0.0">
+      <CustomTaskConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <Accessibility>Public</Accessibility>
+        <Id>SimpleProbeAction.AgentTask</Id>
+        <DisplayName>Simple Probe Action Agent Task</DisplayName>
+        <Description>Simple Probe Action Test</Description>
+        <Target>Windows!Microsoft.Windows.Computer</Target>
+        <Enabled>true</Enabled>
+        <Category>Maintenance</Category>
+        <Timeout>300</Timeout>
+        <Remotable>true</Remotable>
+        <ProbeActionId>PA_SimpleProbeAction</ProbeActionId>
+        <ProbeActionType>Maximus.Research.ManagedModules.SimpleProbeAction.ProbeAction</ProbeActionType>
+        <WriteActionId>WA</WriteActionId>
+      </CustomTaskConfig>
+    </Instance>
+  </Instances>
+</TemplateGroup>

@@ -30,7 +30,22 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Maximus.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.EnterpriseManagement.HealthService">
+      <HintPath>..\..\..\..\SDKs\SCOM 2012\Microsoft.EnterpriseManagement.HealthService.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.EnterpriseManagement.Modules.DataTypes">
+      <HintPath>..\..\..\..\SDKs\SCOM 2012\Microsoft.EnterpriseManagement.Modules.DataTypes.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Mom.Modules.DataTypes">
+      <HintPath>..\..\..\..\SDKs\SCOM 2012\Microsoft.Mom.Modules.DataTypes.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,6 +57,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimpleProbeAction.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Maximus.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -13,20 +13,21 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug\</OutputPath>
-    <GenerateSealed>false</GenerateSealed>
-    <Company>MyCompany</Company>
-    <Copyright>Copyright (c) MyCompany. All rights reserved.</Copyright>
-    <DelaySigning>false</DelaySigning>
-    <AssemblyOriginatorKeyFile />
+    <GenerateSealed>True</GenerateSealed>
+    <Company>Maximus</Company>
+    <Copyright>Copyright (c) Maximus. All rights reserved.</Copyright>
+    <DelaySigning>False</DelaySigning>
+    <AssemblyOriginatorKeyFile>C:\Projects\SCOMAuthoring\Maximus.Research.ManagedModules\.key\Maximus.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DebugSymbols>false</DebugSymbols>
     <OutputPath>bin\Release\</OutputPath>
-    <DelaySigning>false</DelaySigning>
-    <Company>MyCompany</Company>
-    <Copyright>Copyright (c) MyCompany. All rights reserved.</Copyright>
+    <DelaySigning>False</DelaySigning>
+    <Company>Maximus</Company>
+    <Copyright>Copyright (c) Maximus. All rights reserved.</Copyright>
     <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile />
+    <AssemblyOriginatorKeyFile>C:\Projects\SCOMAuthoring\Maximus.Research.ManagedModules\.key\Maximus.snk</AssemblyOriginatorKeyFile>
+    <GenerateSealed>True</GenerateSealed>
   </PropertyGroup>
   <ItemGroup>
     <ManagementPackReference Include="Microsoft.SystemCenter.Library">
@@ -49,6 +50,35 @@
       <Alias>Visualization</Alias>
       <PackageToBundle>false</PackageToBundle>
     </ManagementPackReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assembly.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ManagementPack.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Templates.mptg.mpx">
+      <SubType>Code</SubType>
+      <DependentUpon>Templates.mptg</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Maximus.Research.Modules\Maximus.Research.Modules.csproj">
+      <Name>Maximus.Research.Modules</Name>
+      <Project>{4f2d8297-6e8f-4ad1-94ab-fcf0653b530e}</Project>
+      <Private>True</Private>
+      <PackageToBundle>True</PackageToBundle>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Templates.mptg">
+      <SubType>Content</SubType>
+      <Generator>FragmentGenerator</Generator>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VSAC\Microsoft.SystemCenter.OperationsManager.targets" />
 </Project>

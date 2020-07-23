@@ -1,0 +1,92 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TypeDefinitions>
+    <ModuleTypes>
+      <DataSourceModuleType ID="Maximus.Research.ManagedModules.SimpleProbeAction.DataSource" Accessibility="Public">
+        <Configuration />
+        <ModuleImplementation>
+          <Composite>
+            <MemberModules>
+              <DataSource ID="DS_Scheduler" TypeID="System!System.SimpleScheduler">
+                <IntervalSeconds>60</IntervalSeconds>
+                <SyncTime />
+              </DataSource>
+              <ProbeAction ID="PA_SimpleProbeAction" TypeID="Maximus.Research.ManagedModules.SimpleProbeAction.ProbeAction" />
+            </MemberModules>
+            <Composition>
+              <Node ID="PA_SimpleProbeAction">
+                <Node ID="DS_Scheduler" />
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.PropertyBagData</OutputType>
+      </DataSourceModuleType>
+      
+      <ProbeActionModuleType ID="Maximus.Research.ManagedModules.SimpleProbeAction.ProbeAction" Accessibility="Public">
+        <Configuration />
+        <OverrideableParameters />
+        <ModuleImplementation>
+          <Managed> 
+            <Assembly>Maximus.Research.ManagedModules.Modules.DeployableAssembly</Assembly> 
+            <Type>Maximus.Research.Modules.SimpleProbeAction</Type> 
+          </Managed>
+        </ModuleImplementation>
+        <OutputType>System!System.PropertyBagData</OutputType>
+        <InputType>System!System.BaseData</InputType>
+      </ProbeActionModuleType>
+    </ModuleTypes>
+    <MonitorTypes>
+      <UnitMonitorType ID="Maximus.Research.ManagedModules.SimpleProbeActionUnitMonitorType" Accessibility="Public">
+        <MonitorTypeStates>
+          <MonitorTypeState ID="OK" NoDetection="false"/>
+          <MonitorTypeState ID="ERROR" NoDetection="false"/>
+        </MonitorTypeStates>
+        <Configuration />
+        <OverrideableParameters />
+        <MonitorImplementation>
+          <MemberModules>
+            <DataSource ID="DS_SimpleProbeAction" TypeID="Maximus.Research.ManagedModules.SimpleProbeAction.DataSource" />
+            <ConditionDetection ID="CD_OK" TypeID="System!System.ExpressionFilter">
+              <Expression>
+                <SimpleExpression>
+                  <ValueExpression>
+                    <XPathQuery Type="String">Property[@Name='Status']</XPathQuery>
+                  </ValueExpression>
+                  <Operator>Equal</Operator>
+                  <ValueExpression>
+                    <Value Type="String">OK</Value>
+                  </ValueExpression>
+                </SimpleExpression>
+              </Expression>
+            </ConditionDetection>
+            <ConditionDetection ID="CD_ERROR" TypeID="System!System.ExpressionFilter">
+              <Expression>
+                <SimpleExpression>
+                  <ValueExpression>
+                    <XPathQuery Type="String">Property[@Name='Status']</XPathQuery>
+                  </ValueExpression>
+                  <Operator>Equal</Operator>
+                  <ValueExpression>
+                    <Value Type="String">ERROR</Value>
+                  </ValueExpression>
+                </SimpleExpression>
+              </Expression>
+            </ConditionDetection>
+          </MemberModules>
+          <RegularDetections>
+            <RegularDetection MonitorTypeStateID="OK">
+              <Node ID="CD_OK">
+                <Node ID="DS_SimpleProbeAction" />
+              </Node>
+            </RegularDetection>
+            <RegularDetection MonitorTypeStateID="ERROR">
+              <Node ID="CD_ERROR">
+                <Node ID="DS_SimpleProbeAction" />
+              </Node>
+            </RegularDetection>
+          </RegularDetections>
+        </MonitorImplementation>
+      </UnitMonitorType>
+    </MonitorTypes>
+  </TypeDefinitions>  
+</ManagementPackFragment>

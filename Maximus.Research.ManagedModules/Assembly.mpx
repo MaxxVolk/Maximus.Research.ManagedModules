@@ -1,0 +1,8 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Resources>
+    <DeployableAssembly ID="Maximus.Research.ManagedModules.Modules.DeployableAssembly"
+                        HasNullStream="false" Accessibility="Internal"
+                        FileName="Maximus.Research.Modules.dll"
+                        QualifiedName="Maximus.Research.Modules, Version=1.0.0.2, Culture=neutral, PublicKeyToken=fd5098a6a3259696" />
+  </Resources>
+</ManagementPackFragment>
