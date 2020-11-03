@@ -63,7 +63,7 @@ namespace Maximus.Research.Modules
         }
         catch (Exception e)
         {
-          Log($"Error while getting ouput data: {e.Message}.\r\n");
+          Log($"Error while getting output data: {e.Message}.\r\n");
         }
         if (ReturningResults != null && ReturningResults.Length != 0)
         {

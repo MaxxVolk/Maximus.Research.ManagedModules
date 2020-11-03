@@ -14,15 +14,16 @@ namespace Maximus.Research.Modules
 {
   [MonitoringModule(ModuleType.ReadAction)]
   [ModuleOutput(true)]
-  public class SimpleProbeAction : ModuleBase<PropertyBagDataItem>
+  public class DiskProbeAction : ModuleBase<PropertyBagDataItem>
   {
     // tracking shutdown status
     private readonly object shutdownLock;
     private bool shutdown;
+    private string DiskID = "none";
 
     private Guid instanceId = Guid.NewGuid();
 
-    public SimpleProbeAction(ModuleHost<PropertyBagDataItem> moduleHost,
+    public DiskProbeAction(ModuleHost<PropertyBagDataItem> moduleHost,
       XmlReader configuration,
       byte[] previousState) : base(moduleHost)
     {
@@ -30,7 +31,12 @@ namespace Maximus.Research.Modules
       // check configuration != null only if the module has configuration
       shutdownLock = new object();
       // load configuration here if any
-      Log($"SimpleProbeAction class instance is created. Host process PID: {Process.GetCurrentProcess().Id}; Managed thread: {Thread.CurrentThread.ManagedThreadId}\r\n");
+      Log($"{nameof(DiskProbeAction)} class instance is created. Host process PID: {Process.GetCurrentProcess().Id}; Managed thread: {Thread.CurrentThread.ManagedThreadId}\r\n");
+      if (configuration != null)
+        LoadConfiguration(configuration);
+      else
+        throw new ArgumentNullException(nameof(configuration));
+      Log($"Configuration is loaded.\r\n");
     }
 
     [InputStream(0)]
@@ -97,6 +103,13 @@ namespace Maximus.Research.Modules
       }
     }
 
+    private void LoadConfiguration(XmlReader configuration)
+    {
+      XmlDocument fullConfig = new XmlDocument();
+      fullConfig.Load(configuration);
+      DiskID = fullConfig.GetElementsByTagName("DiskID")[0].InnerText;
+    }
+
     private void Log(string msg)
     {
       int maxAttempts = 10;
@@ -106,7 +119,7 @@ namespace Maximus.Research.Modules
           maxAttempts--;
           if (maxAttempts < 0)
             break;
-          File.AppendAllText(@"C:\Temp\SimpleProbeActionLog.txt", $"[{instanceId}]:[{DateTime.Now.ToString("HH:mm:ss")}]: {msg}");
+          File.AppendAllText(@"C:\Temp\DiskProbeAction.txt", $"[{instanceId}]:[{DiskID}]:[{DateTime.Now:HH:mm:ss}]: {msg}");
           break;
         }
         catch

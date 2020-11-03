@@ -3,6 +3,6 @@
     <DeployableAssembly ID="Maximus.Research.ManagedModules.Modules.DeployableAssembly"
                         HasNullStream="false" Accessibility="Internal"
                         FileName="Maximus.Research.Modules.dll"
-                        QualifiedName="Maximus.Research.Modules, Version=1.0.0.4, Culture=neutral, PublicKeyToken=fd5098a6a3259696" />
+                        QualifiedName="Maximus.Research.Modules, Version=1.0.0.7, Culture=neutral, PublicKeyToken=fd5098a6a3259696" />
   </Resources>
 </ManagementPackFragment>

@@ -1,6 +1,8 @@
 ﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <TypeDefinitions>
     <ModuleTypes>
+      
+      <!-- Maximus.Research.ManagedModules.SimpleProbeAction.DataSource -->
       <DataSourceModuleType ID="Maximus.Research.ManagedModules.SimpleProbeAction.DataSource" Accessibility="Public">
         <Configuration />
         <ModuleImplementation>
@@ -22,6 +24,7 @@
         <OutputType>System!System.PropertyBagData</OutputType>
       </DataSourceModuleType>
 
+      <!-- Maximus.Research.ManagedModules.SimpleWConfigProbeAction.DataSource -->
       <DataSourceModuleType ID="Maximus.Research.ManagedModules.SimpleWConfigProbeAction.DataSource" Accessibility="Public">
         <Configuration>
           <xsd:element minOccurs="1" name="TopLevelWorkflowName" type="xsd:string" />
@@ -49,7 +52,35 @@
         </ModuleImplementation>
         <OutputType>System!System.PropertyBagData</OutputType>
       </DataSourceModuleType>
+
+      <!-- Maximus.Research.ManagedModules.DiskProbeAction.DataSource -->
+      <DataSourceModuleType ID="Maximus.Research.ManagedModules.DiskProbeAction.DataSource" Accessibility="Public">
+        <Configuration>
+          <xsd:element minOccurs="1" name="DiskID" type="xsd:string" />
+        </Configuration>
+        <OverrideableParameters />
+        <ModuleImplementation>
+          <Composite>
+            <MemberModules>
+              <DataSource ID="DS_Scheduler" TypeID="System!System.SimpleScheduler">
+                <IntervalSeconds>60</IntervalSeconds>
+                <SyncTime />
+              </DataSource>
+              <ProbeAction ID="PA_SimpleProbeAction" TypeID="Maximus.Research.ManagedModules.DiskProbeAction.ProbeAction">
+                <DiskID>$Config/DiskID$</DiskID>
+              </ProbeAction>
+            </MemberModules>
+            <Composition>
+              <Node ID="PA_SimpleProbeAction">
+                <Node ID="DS_Scheduler" />
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.PropertyBagData</OutputType>
+      </DataSourceModuleType>
       
+      <!-- Maximus.Research.ManagedModules.SimpleProbeAction.ProbeAction -->
       <ProbeActionModuleType ID="Maximus.Research.ManagedModules.SimpleProbeAction.ProbeAction" Accessibility="Public">
         <Configuration />
         <OverrideableParameters />
@@ -63,6 +94,7 @@
         <InputType>System!System.BaseData</InputType>
       </ProbeActionModuleType>
 
+      <!-- Maximus.Research.ManagedModules.SimpleWConfigProbeAction.ProbeAction -->
       <ProbeActionModuleType ID="Maximus.Research.ManagedModules.SimpleWConfigProbeAction.ProbeAction" Accessibility="Public">
         <Configuration>
           <xsd:element minOccurs="1" name="TopLevelWorkflowName" type="xsd:string" />
@@ -79,8 +111,26 @@
         <OutputType>System!System.PropertyBagData</OutputType>
         <InputType>System!System.BaseData</InputType>
       </ProbeActionModuleType>
+
+      <!-- Maximus.Research.ManagedModules.DiskProbeAction.ProbeAction -->
+      <ProbeActionModuleType ID="Maximus.Research.ManagedModules.DiskProbeAction.ProbeAction" Accessibility="Public">
+        <Configuration>
+          <xsd:element minOccurs="1" name="DiskID" type="xsd:string" />
+        </Configuration>
+        <OverrideableParameters />
+        <ModuleImplementation>
+          <Managed>
+            <Assembly>Maximus.Research.ManagedModules.Modules.DeployableAssembly</Assembly>
+            <Type>Maximus.Research.Modules.DiskProbeAction</Type>
+          </Managed>
+        </ModuleImplementation>
+        <OutputType>System!System.PropertyBagData</OutputType>
+        <InputType>System!System.BaseData</InputType>
+      </ProbeActionModuleType>
     </ModuleTypes>
     <MonitorTypes>
+
+      <!-- Maximus.Research.ManagedModules.SimpleProbeActionUnitMonitorType -->
       <UnitMonitorType ID="Maximus.Research.ManagedModules.SimpleProbeActionUnitMonitorType" Accessibility="Public">
         <MonitorTypeStates>
           <MonitorTypeState ID="OK" NoDetection="false"/>
@@ -133,6 +183,7 @@
         </MonitorImplementation>
       </UnitMonitorType>
 
+      <!-- Maximus.Research.ManagedModules.SimpleWConfigProbeAction.UnitMonitorType -->
       <UnitMonitorType ID="Maximus.Research.ManagedModules.SimpleWConfigProbeAction.UnitMonitorType" Accessibility="Public">
         <MonitorTypeStates>
           <MonitorTypeState ID="OK" NoDetection="false"/>
@@ -190,6 +241,64 @@
           </RegularDetections>
         </MonitorImplementation>
       </UnitMonitorType>
+
+      <!-- Maximus.Research.ManagedModules.DiskProbeAction.UnitMonitorType -->
+      <UnitMonitorType ID="Maximus.Research.ManagedModules.DiskProbeAction.UnitMonitorType" Accessibility="Public">
+        <MonitorTypeStates>
+          <MonitorTypeState ID="OK" NoDetection="false"/>
+          <MonitorTypeState ID="ERROR" NoDetection="false"/>
+        </MonitorTypeStates>
+        <Configuration>
+          <xsd:element minOccurs="1" name="DiskID" type="xsd:string" />
+        </Configuration>
+        <OverrideableParameters />
+        <MonitorImplementation>
+          <MemberModules>
+            <DataSource ID="DS_SimpleProbeAction" TypeID="Maximus.Research.ManagedModules.DiskProbeAction.DataSource">
+              <DiskID>$Config/DiskID$</DiskID>
+            </DataSource>
+            <ConditionDetection ID="CD_OK" TypeID="System!System.ExpressionFilter">
+              <Expression>
+                <SimpleExpression>
+                  <ValueExpression>
+                    <XPathQuery Type="String">Property[@Name='Status']</XPathQuery>
+                  </ValueExpression>
+                  <Operator>Equal</Operator>
+                  <ValueExpression>
+                    <Value Type="String">OK</Value>
+                  </ValueExpression>
+                </SimpleExpression>
+              </Expression>
+            </ConditionDetection>
+            <ConditionDetection ID="CD_ERROR" TypeID="System!System.ExpressionFilter">
+              <Expression>
+                <SimpleExpression>
+                  <ValueExpression>
+                    <XPathQuery Type="String">Property[@Name='Status']</XPathQuery>
+                  </ValueExpression>
+                  <Operator>Equal</Operator>
+                  <ValueExpression>
+                    <Value Type="String">ERROR</Value>
+                  </ValueExpression>
+                </SimpleExpression>
+              </Expression>
+            </ConditionDetection>
+          </MemberModules>
+          <RegularDetections>
+            <RegularDetection MonitorTypeStateID="OK">
+              <Node ID="CD_OK">
+                <Node ID="DS_SimpleProbeAction" />
+              </Node>
+            </RegularDetection>
+            <RegularDetection MonitorTypeStateID="ERROR">
+              <Node ID="CD_ERROR">
+                <Node ID="DS_SimpleProbeAction" />
+              </Node>
+            </RegularDetection>
+          </RegularDetections>
+        </MonitorImplementation>
+      </UnitMonitorType>
+    
     </MonitorTypes>
   </TypeDefinitions>  
 </ManagementPackFragment>

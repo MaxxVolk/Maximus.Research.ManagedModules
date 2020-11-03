@@ -163,5 +163,133 @@
         <ConfirmDelivery>false</ConfirmDelivery>
       </UnitMonitorConfig>
     </Instance>
+    <Instance ID="Instance87c7957bb51441b0a37a2c370fa25f15" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.CustomRule" Version="1.0.0.0">
+      <CustomRuleConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <Id>DiskProbeAction.WithParam.Rule</Id>
+        <DisplayName>Disk Probe Action With Parameter Rule</DisplayName>
+        <Description>Disk Probe Action With Parameter Rule</Description>
+        <Category>PerformanceHealth</Category>
+        <ConfirmDelivery>false</ConfirmDelivery>
+        <Target>Windows!Microsoft.Windows.LogicalDisk</Target>
+        <Enabled>true</Enabled>
+        <Remotable>true</Remotable>
+        <Priority>Normal</Priority>
+        <DiscardLevel>100</DiscardLevel>
+        <DataSources>
+          <RuleDataSourceItem>
+            <DataSourceId>DS</DataSourceId>
+            <DataSourceConfig>&lt;DiskID&gt;$Target/Property[Type="Windows!Microsoft.Windows.LogicalDevice"]/DeviceID$&lt;/DiskID&gt;</DataSourceConfig>
+            <DataSourceType>Maximus.Research.ManagedModules.DiskProbeAction.DataSource</DataSourceType>
+          </RuleDataSourceItem>
+        </DataSources>
+        <ConditionDetectionId>CD</ConditionDetectionId>
+        <WriteActions>
+          <RuleWriteActionItem>
+            <WriteActionId>WA</WriteActionId>
+            <WriteActionConfig>&lt;ApplicationName&gt;cmd.exe&lt;/ApplicationName&gt;&lt;WorkingDirectory /&gt;&lt;CommandLine&gt;/C&lt;/CommandLine&gt;&lt;TimeoutSeconds&gt;10&lt;/TimeoutSeconds&gt;&lt;RequireOutput&gt;false&lt;/RequireOutput&gt;</WriteActionConfig>
+            <WriteActionType>System!System.CommandExecuter</WriteActionType>
+          </RuleWriteActionItem>
+        </WriteActions>
+      </CustomRuleConfig>
+    </Instance>
+    <Instance ID="Instancef2cb8ba5d4964d4481a000dc9027e863" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.UnitMonitor" Version="1.0.0.0">
+      <UnitMonitorConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <MonitorType>Maximus.Research.ManagedModules.DiskProbeAction.UnitMonitorType</MonitorType>
+        <MonitorConfig>&lt;DiskID&gt;$Target/Property[Type="Windows!Microsoft.Windows.LogicalDevice"]/DeviceID$&lt;/DiskID&gt;</MonitorConfig>
+        <MonitorOperationalStates>
+          <OperationalState>
+            <OperationalStateId>OK</OperationalStateId>
+            <OperationalStateDisplayName>OK</OperationalStateDisplayName>
+            <MonitorTypeStateId>OK</MonitorTypeStateId>
+            <HealthState>Success</HealthState>
+          </OperationalState>
+          <OperationalState>
+            <OperationalStateId>ERROR</OperationalStateId>
+            <OperationalStateDisplayName>ERROR</OperationalStateDisplayName>
+            <MonitorTypeStateId>ERROR</MonitorTypeStateId>
+            <HealthState>Error</HealthState>
+          </OperationalState>
+        </MonitorOperationalStates>
+        <ParentMonitor>Health!System.Health.AvailabilityState</ParentMonitor>
+        <Accessibility>Public</Accessibility>
+        <Id>DiskProbeAction.WithParam.UnitMonitor</Id>
+        <DisplayName>Disk Probe Action with Parameter Unit Monitor</DisplayName>
+        <Description>Disk Probe Action With Parameter Unit Monitor</Description>
+        <Target>Windows!Microsoft.Windows.LogicalDisk</Target>
+        <Enabled>true</Enabled>
+        <Category>AvailabilityHealth</Category>
+        <Remotable>true</Remotable>
+        <Priority>Normal</Priority>
+        <AlertAutoResolve>true</AlertAutoResolve>
+        <AlertOnState>None</AlertOnState>
+        <AlertPriority>Normal</AlertPriority>
+        <AlertSeverity>MatchMonitorHealth</AlertSeverity>
+        <ConfirmDelivery>false</ConfirmDelivery>
+      </UnitMonitorConfig>
+    </Instance>
+    <Instance ID="Instancecc730b495c9f479aa724ba610e5abc6f" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.UnitMonitor" Version="1.0.0.0">
+      <UnitMonitorConfig xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <MonitorType>Maximus.Research.ManagedModules.DiskProbeAction.UnitMonitorType</MonitorType>
+        <MonitorConfig>&lt;DiskID&gt;&lt;/DiskID&gt;</MonitorConfig>
+        <MonitorOperationalStates>
+          <OperationalState>
+            <OperationalStateId>OK</OperationalStateId>
+            <OperationalStateDisplayName>OK</OperationalStateDisplayName>
+            <MonitorTypeStateId>OK</MonitorTypeStateId>
+            <HealthState>Success</HealthState>
+          </OperationalState>
+          <OperationalState>
+            <OperationalStateId>ERROR</OperationalStateId>
+            <OperationalStateDisplayName>ERROR</OperationalStateDisplayName>
+            <MonitorTypeStateId>ERROR</MonitorTypeStateId>
+            <HealthState>Error</HealthState>
+          </OperationalState>
+        </MonitorOperationalStates>
+        <ParentMonitor>Health!System.Health.AvailabilityState</ParentMonitor>
+        <Accessibility>Public</Accessibility>
+        <Id>DiskProbeAction.NoParam.UnitMonitor</Id>
+        <DisplayName>Disk Probe Action No Parameter Unit Monitor</DisplayName>
+        <Description>Disk Probe Action No Parameter Unit Monitor</Description>
+        <Target>Windows!Microsoft.Windows.LogicalDisk</Target>
+        <Enabled>true</Enabled>
+        <Category>AvailabilityHealth</Category>
+        <Remotable>true</Remotable>
+        <Priority>Normal</Priority>
+        <AlertAutoResolve>true</AlertAutoResolve>
+        <AlertOnState>None</AlertOnState>
+        <AlertPriority>Normal</AlertPriority>
+        <AlertSeverity>MatchMonitorHealth</AlertSeverity>
+        <ConfirmDelivery>false</ConfirmDelivery>
+      </UnitMonitorConfig>
+    </Instance>
+    <Instance ID="Instanceb1fa3390a3104ccea48fa8f96a6d6444" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.CustomRule" Version="1.0.0.0">
+      <CustomRuleConfig xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <Id>DiskProbeAction.NoParam.Rule</Id>
+        <DisplayName>Disk Probe Action No Parameter Rule</DisplayName>
+        <Description>Disk Probe Action No Parameter Rule</Description>
+        <Category>PerformanceHealth</Category>
+        <ConfirmDelivery>false</ConfirmDelivery>
+        <Target>Windows!Microsoft.Windows.LogicalDisk</Target>
+        <Enabled>true</Enabled>
+        <Remotable>true</Remotable>
+        <Priority>Normal</Priority>
+        <DiscardLevel>100</DiscardLevel>
+        <DataSources>
+          <RuleDataSourceItem>
+            <DataSourceId>DS</DataSourceId>
+            <DataSourceConfig>&lt;DiskID&gt;&lt;/DiskID&gt;</DataSourceConfig>
+            <DataSourceType>Maximus.Research.ManagedModules.DiskProbeAction.DataSource</DataSourceType>
+          </RuleDataSourceItem>
+        </DataSources>
+        <ConditionDetectionId>CD</ConditionDetectionId>
+        <WriteActions>
+          <RuleWriteActionItem>
+            <WriteActionId>WA</WriteActionId>
+            <WriteActionConfig>&lt;ApplicationName&gt;cmd.exe&lt;/ApplicationName&gt;&lt;WorkingDirectory /&gt;&lt;CommandLine&gt;/C&lt;/CommandLine&gt;&lt;TimeoutSeconds&gt;10&lt;/TimeoutSeconds&gt;&lt;RequireOutput&gt;false&lt;/RequireOutput&gt;</WriteActionConfig>
+            <WriteActionType>System!System.CommandExecuter</WriteActionType>
+          </RuleWriteActionItem>
+        </WriteActions>
+      </CustomRuleConfig>
+    </Instance>
   </Instances>
 </TemplateGroup>
